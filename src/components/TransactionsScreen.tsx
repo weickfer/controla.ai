@@ -73,20 +73,20 @@ export default function TransactionsScreen() {
   const [transactions] = useState<Transaction[]>(mockTransactions);
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col w-full">
       {/* Header */}
-      <div className="px-6 py-4 bg-card">
-        <h2 className="text-xl font-semibold text-foreground mb-1">
+      <div className="px-6 py-4 lg:py-6 bg-card lg:bg-transparent">
+        <h2 className="text-xl lg:text-2xl font-bold text-foreground mb-1">
           Transações
         </h2>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm lg:text-base text-muted-foreground">
           {transactions.length} transações este mês
         </p>
       </div>
 
       {/* Transactions List */}
       <ScrollArea className="flex-1 px-6">
-        <div className="space-y-3 pb-6">
+        <div className="space-y-3 lg:space-y-4 pb-6 lg:pb-8">
           {transactions.map((transaction, index) => (
             <div
               key={transaction.id}
