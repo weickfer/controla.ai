@@ -24,9 +24,30 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				
+				/* Financial colors */
+				income: {
+					DEFAULT: 'hsl(var(--income))',
+					foreground: 'hsl(var(--income-foreground))',
+					light: 'hsl(var(--income-light))',
+					bg: 'hsl(var(--income-bg))'
+				},
+				expense: {
+					DEFAULT: 'hsl(var(--expense))',
+					foreground: 'hsl(var(--expense-foreground))',
+					light: 'hsl(var(--expense-light))',
+					bg: 'hsl(var(--expense-bg))'
+				},
+				neutral: {
+					DEFAULT: 'hsl(var(--neutral))',
+					foreground: 'hsl(var(--neutral-foreground))',
+					dark: 'hsl(var(--neutral-dark))'
+				},
+				
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					light: 'hsl(var(--primary-light))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -62,6 +83,26 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			backgroundImage: {
+				'gradient-income': 'var(--gradient-income)',
+				'gradient-expense': 'var(--gradient-expense)',
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-card': 'var(--gradient-card)'
+			},
+			boxShadow: {
+				'sm': 'var(--shadow-sm)',
+				'md': 'var(--shadow-md)',
+				'lg': 'var(--shadow-lg)',
+				'income': 'var(--shadow-income)',
+				'expense': 'var(--shadow-expense)'
+			},
+			transitionProperty: {
+				'base': 'var(--transition-base)',
+				'smooth': 'var(--transition-smooth)'
+			},
+			fontFamily: {
+				'sans': ['Inter', 'system-ui', 'sans-serif']
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
