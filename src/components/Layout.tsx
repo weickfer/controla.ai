@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getUserData, Transaction } from "@/services/supabase";
-import { BarChart3, Loader2, Phone, Plus, Receipt } from "lucide-react";
+import { BarChart3, Loader2, Phone, Receipt } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import DashboardScreen from "./DashboardScreen";
-import TransactionModal from "./TransactionModal";
 import TransactionsScreen from "./TransactionsScreen";
 
 // Tipos
@@ -21,7 +20,7 @@ type User = {
 
 export default function Layout() {
   const [activeScreen, setActiveScreen] = useState<Screen>("transactions");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Novo estado do fluxo de auth
   const [isLoading, setIsLoading] = useState(true);
@@ -190,16 +189,16 @@ export default function Layout() {
       </div>
 
       {/* Floating Action Button */}
-      <Button
+      {/* <Button
         size="lg"
         className="fixed bottom-6 right-6 lg:bottom-8 lg:right-8 w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 z-50"
         onClick={() => setIsModalOpen(true)}
       >
         <Plus className="w-6 h-6 lg:w-7 lg:h-7 text-primary-foreground" />
-      </Button>
+      </Button> */}
 
       {/* Transaction Modal */}
-      <TransactionModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      {/* <TransactionModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} /> */}
     </div>
   );
 }
