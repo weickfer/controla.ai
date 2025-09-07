@@ -38,6 +38,12 @@ export default {
 					light: 'hsl(var(--expense-light))',
 					bg: 'hsl(var(--expense-bg))'
 				},
+				investment: {
+					DEFAULT: 'hsl(var(--investment))',
+					foreground: 'hsl(var(--investment-foreground))',
+					light: 'hsl(var(--investment-light))',
+					bg: 'hsl(var(--investment-bg))'
+				},
 				neutral: {
 					DEFAULT: 'hsl(var(--neutral))',
 					foreground: 'hsl(var(--neutral-foreground))',

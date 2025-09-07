@@ -1,29 +1,16 @@
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
-import { ArrowUpRight, ArrowDownRight, DollarSign, Brain } from "lucide-react";
+import { computeDashboardData } from "@/lib/compute-dashboard-data";
+import { Transaction } from "@/services/supabase";
+import { ArrowDownRight, ArrowUpRight, DollarSign } from "lucide-react";
+import { Bar, BarChart, Cell, Pie, PieChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
-const summaryData = {
-  income: 4300.00,
-  expense: 322.40,
-  balance: 3977.60
-};
+type DashboardScreenProps = {
+  data: Transaction[]
+}
 
-const categoryData = [
-  { name: 'Alimentação', value: 250.00, color: 'hsl(0 72% 51%)' },
-  { name: 'Transporte', value: 15.50, color: 'hsl(25 95% 53%)' },
-  { name: 'Delivery', value: 32.90, color: 'hsl(43 96% 56%)' },
-  { name: 'Lazer', value: 24.00, color: 'hsl(271 76% 53%)' }
-];
-
-const weeklyData = [
-  { name: 'Sem 1', income: 800, expense: 150 },
-  { name: 'Sem 2', income: 0, expense: 89 },
-  { name: 'Sem 3', income: 0, expense: 83 },
-  { name: 'Sem 4', income: 3500, expense: 0 }
-];
-
-export default function DashboardScreen() {
+export default function DashboardScreen({ data }: DashboardScreenProps) {
+  const { categoryData, summaryData, weeklyData } = computeDashboardData(data)
   return (
     <div className="h-full w-full">
       <ScrollArea className="h-full">
@@ -56,7 +43,7 @@ export default function DashboardScreen() {
             </Card>
 
             {/* Income Card */}
-            <Card className="p-4 lg:p-6 lg:col-span-1">
+            <Card className="p-2 lg:p-4 lg:col-span-1">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 lg:w-12 lg:h-12 bg-income-bg rounded-full flex items-center justify-center">
                   <ArrowUpRight className="w-5 h-5 lg:w-6 lg:h-6 text-income" />
@@ -71,7 +58,7 @@ export default function DashboardScreen() {
             </Card>
 
             {/* Expense Card */}
-            <Card className="p-4 lg:p-6 lg:col-span-1">
+            <Card className="p-2 lg:p-4 lg:col-span-1">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 lg:w-12 lg:h-12 bg-expense-bg rounded-full flex items-center justify-center">
                   <ArrowDownRight className="w-5 h-5 lg:w-6 lg:h-6 text-expense" />
@@ -80,6 +67,19 @@ export default function DashboardScreen() {
                   <p className="text-xs lg:text-sm text-muted-foreground">Saídas</p>
                   <p className="text-lg lg:text-xl font-semibold text-expense">
                     R$ {summaryData.expense.toFixed(2)}
+                  </p>
+                </div>
+              </div>
+            </Card>
+            <Card className="p-2 lg:p-4 lg:col-span-1">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 lg:w-12 lg:h-12 bg-investment-bg rounded-full flex items-center justify-center">
+                  <ArrowDownRight className="w-5 h-5 lg:w-6 lg:h-6 text-investment" />
+                </div>
+                <div>
+                  <p className="text-xs lg:text-sm text-muted-foreground">Investimentos</p>
+                  <p className="text-lg lg:text-xl font-semibold text-investment">
+                    R$ {summaryData.investment.toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -163,7 +163,7 @@ export default function DashboardScreen() {
           </div>
 
           {/* AI Insight */}
-          <Card className="p-4 lg:p-6 bg-primary/5 border-primary/20">
+          {/* <Card className="p-4 lg:p-6 bg-primary/5 border-primary/20">
             <div className="flex items-start space-x-3 lg:space-x-4">
               <div className="w-8 h-8 lg:w-10 lg:h-10 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0">
                 <Brain className="w-4 h-4 lg:w-5 lg:h-5 text-primary" />
@@ -177,7 +177,7 @@ export default function DashboardScreen() {
                 </p>
               </div>
             </div>
-          </Card>
+          </Card> */}
         </div>
       </ScrollArea>
     </div>

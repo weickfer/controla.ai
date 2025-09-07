@@ -1,96 +1,35 @@
-import { useState, useMemo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Transaction } from "@/services/supabase";
 import { Calendar } from "lucide-react";
+import { useMemo } from "react";
 import TransactionItem from "./TransactionItem";
 
-interface Transaction {
-  id: string;
-  type: 'income' | 'expense';
-  category: string;
-  description: string;
-  amount: number;
-  date: string;
-  emoji: string;
+
+type TransactionProps = {
+  data: Transaction[]
 }
 
-const mockTransactions: Transaction[] = [
-  {
-    id: '1',
-    type: 'expense',
-    category: 'Alimentação',
-    description: 'Mercado',
-    amount: 250.00,
-    date: '28 Ago',
-    emoji: '🛒'
-  },
-  {
-    id: '2',
-    type: 'income',
-    category: 'Salário',
-    description: 'Pagamento mensal',
-    amount: 3500.00,
-    date: '27 Ago',
-    emoji: '💰'
-  },
-  {
-    id: '3',
-    type: 'expense',
-    category: 'Transporte',
-    description: 'Uber',
-    amount: 15.50,
-    date: '27 Ago',
-    emoji: '🚗'
-  },
-  {
-    id: '4',
-    type: 'expense',
-    category: 'Delivery',
-    description: 'iFood',
-    amount: 32.90,
-    date: '26 Ago',
-    emoji: '🍕'
-  },
-  {
-    id: '5',
-    type: 'income',
-    category: 'Freelance',
-    description: 'Projeto web',
-    amount: 800.00,
-    date: '25 Ago',
-    emoji: '💻'
-  },
-  {
-    id: '6',
-    type: 'expense',
-    category: 'Lazer',
-    description: 'Cinema',
-    amount: 24.00,
-    date: '24 Ago',
-    emoji: '🎬'
-  }
-];
-
-export default function TransactionsScreen() {
-  const [transactions] = useState<Transaction[]>(mockTransactions);
+export default function TransactionsScreen({ data: transactions }: TransactionProps) {
 
   // Group transactions by date
   const groupedTransactions = useMemo(() => {
     const groups: { [key: string]: Transaction[] } = {};
     transactions.forEach(transaction => {
-      if (!groups[transaction.date]) {
-        groups[transaction.date] = [];
+      if (!groups[transaction.transaction_date]) {
+        groups[transaction.transaction_date] = [];
       }
-      groups[transaction.date].push(transaction);
+      groups[transaction.transaction_date].push(transaction);
     });
     return groups;
   }, [transactions]);
 
   // Get sorted date keys (most recent first)
   const sortedDates = Object.keys(groupedTransactions).sort((a, b) => {
-    // Simple sorting by the numeric part of the date string
-    const dayA = parseInt(a.split(' ')[0]);
-    const dayB = parseInt(b.split(' ')[0]);
-    return dayB - dayA;
+    // Sort by date descending (most recent first)
+    // Handles ISO date strings like "2025-09-07"
+    const dateA = new Date(a);
+    const dateB = new Date(b);
+    return dateB.getTime() - dateA.getTime();
   });
 
   return (
@@ -117,7 +56,41 @@ export default function TransactionsScreen() {
               >
                 <Calendar className="w-4 h-4 text-muted-foreground" />
                 <h3 className="text-sm lg:text-base font-semibold text-foreground">
-                  {date}
+                  {(() => {
+                    // Tenta converter a data para um label amigável
+                    const today = new Date();
+                    const txDate = new Date(date);
+                    // Zera horas para comparar só a data
+                    const todayYMD = today.toISOString().slice(0, 10);
+                    const txYMD = txDate.toISOString().slice(0, 10);
+
+                    if (txYMD === todayYMD) return "Hoje";
+
+                    // Ontem
+                    const yesterday = new Date(today);
+                    yesterday.setDate(today.getDate() - 1);
+                    const yesterdayYMD = yesterday.toISOString().slice(0, 10);
+                    if (txYMD === yesterdayYMD) return "Ontem";
+
+                    // Dia da semana (em português)
+                    const dias = [
+                      "Segunda-feira",
+                      "Terça-feira",
+                      "Quarta-feira",
+                      "Quinta-feira",
+                      "Sexta-feira",
+                      "Sábado",
+                      "Domingo",
+                    ];
+                    // Se for na mesma semana (últimos 7 dias, mas não hoje/ontem)
+                    const diff = Math.floor((today.getTime() - txDate.getTime()) / (1000 * 60 * 60 * 24));
+                    if (diff < 7 && diff > 1) {
+                      return dias[txDate.getDay()];
+                    }
+
+                    // Se não, mostra data formatada (ex: 07/09/2025)
+                    return txDate.toLocaleDateString("pt-BR");
+                  })()}
                 </h3>
                 <div className="flex-1 h-px bg-border/50"></div>
               </div>

@@ -1,15 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-
-interface Transaction {
-  id: string;
-  type: 'income' | 'expense';
-  category: string;
-  description: string;
-  amount: number;
-  date: string;
-  emoji: string;
-}
+import { Transaction } from "@/services/supabase";
 
 interface TransactionItemProps {
   transaction: Transaction;
@@ -18,17 +9,19 @@ interface TransactionItemProps {
 export default function TransactionItem({ transaction }: TransactionItemProps) {
   const isIncome = transaction.type === 'income';
 
+  console.log(transaction)
+
   return (
     <Card className="p-4 lg:p-5 hover:shadow-md transition-all duration-200 cursor-pointer touch-target border border-border/50 hover:border-border">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3 lg:space-x-4">
           {/* Category Icon */}
-          <div className={cn(
+          {/* <div className={cn(
             "w-12 h-12 lg:w-14 lg:h-14 rounded-full flex items-center justify-center text-lg lg:text-xl",
             isIncome ? "bg-income-bg" : "bg-expense-bg"
           )}>
-            {transaction.emoji}
-          </div>
+            {transaction}
+          </div> */}
           
           {/* Transaction Details */}
           <div>
@@ -50,7 +43,7 @@ export default function TransactionItem({ transaction }: TransactionItemProps) {
             {isIncome ? '+' : '-'}R$ {transaction.amount.toFixed(2)}
           </p>
           <p className="text-xs lg:text-sm text-muted-foreground">
-            {transaction.date}
+            {transaction.transaction_date}
           </p>
         </div>
       </div>

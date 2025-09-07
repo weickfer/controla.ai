@@ -19,6 +19,11 @@
     --expense-light: 0 72% 61%;
     --expense-bg: 0 72% 97%;
 
+    --investment: 48 96% 53%;
+    --investment-foreground: 0 0% 0%;
+    --investment-light: 48 96% 63%;
+    --investment-bg: 48 96% 97%;
+
     /* Clean UI colors */
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
