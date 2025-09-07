@@ -11,7 +11,7 @@ type Screen = "transactions" | "dashboard";
 
 // Config: link do WhatsApp para solicitar URL autorizada
 // Defina em .env.local -> NEXT_PUBLIC_WHATSAPP_URL
-const WHATSAPP_URL = "https://wa.me/XXXXXXXXXX?text=Quero%20minha%20URL%20autorizada";
+const WHATSAPP_URL = "https://wa.me/5561996661389?text=Quero%20minha%20URL%20autorizada";
 
 type User = {
   id: string
