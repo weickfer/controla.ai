@@ -50,3 +50,4 @@ export default function TransactionItem({ transaction }: TransactionItemProps) {
     </Card>
   );
 }
+

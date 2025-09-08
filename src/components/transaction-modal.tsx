@@ -14,13 +14,13 @@ interface TransactionModalProps {
 }
 
 const categories = [
-  { value: 'alimentacao', label: 'Alimentação', emoji: '🛒' },
-  { value: 'transporte', label: 'Transporte', emoji: '🚗' },
-  { value: 'delivery', label: 'Delivery', emoji: '🍕' },
-  { value: 'lazer', label: 'Lazer', emoji: '🎬' },
+  { value: 'alimentacao', label: 'Alimentação', emoji: '🍽️' },
+  { value: 'transporte', label: 'Transporte', emoji: '🚌' },
+  { value: 'delivery', label: 'Delivery', emoji: '🛵' },
+  { value: 'lazer', label: 'Lazer', emoji: '🎮' },
   { value: 'salario', label: 'Salário', emoji: '💰' },
-  { value: 'freelance', label: 'Freelance', emoji: '💻' },
-  { value: 'outros', label: 'Outros', emoji: '📋' }
+  { value: 'freelance', label: 'Freelance', emoji: '🧑‍💻' },
+  { value: 'outros', label: 'Outros', emoji: '📦' }
 ];
 
 export default function TransactionModal({ isOpen, onClose }: TransactionModalProps) {
@@ -42,13 +42,11 @@ export default function TransactionModal({ isOpen, onClose }: TransactionModalPr
       return;
     }
 
-    // Here you would normally save the transaction
     toast({
       title: "Transação adicionada!",
       description: `${type === 'income' ? 'Entrada' : 'Saída'} de R$ ${amount} foi registrada.`,
     });
 
-    // Reset form and close modal
     setAmount('');
     setCategory('');
     setDescription('');
@@ -183,3 +181,4 @@ export default function TransactionModal({ isOpen, onClose }: TransactionModalPr
     </Dialog>
   );
 }
+

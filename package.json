@@ -8,6 +8,8 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
+    "lint:filenames": "node scripts/check-filenames.mjs",
+    "lint:all": "npm run lint && npm run lint:filenames",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -3,8 +3,8 @@ import { cn } from "@/lib/utils";
 import { getUserData, Transaction } from "@/services/supabase";
 import { BarChart3, Loader2, Phone, Receipt } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import DashboardScreen from "./DashboardScreen";
-import TransactionsScreen from "./TransactionsScreen";
+import DashboardScreen from "./dashboard-screen";
+import TransactionsScreen from "./transactions-screen";
 
 // Tipos
 type Screen = "transactions" | "dashboard";
