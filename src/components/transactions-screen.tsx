@@ -3,13 +3,18 @@ import { Transaction } from "@/services/supabase";
 import { Calendar } from "lucide-react";
 import { useMemo } from "react";
 import TransactionItem from "./transaction-item";
+import { useState } from "react";
+import TransactionDetailsModal from "./transaction-details-modal";
 
 
 type TransactionProps = {
-  data: Transaction[]
-}
+  data: Transaction[];
+  onDeleteTransaction?: (id: number) => Promise<void> | void;
+};
 
-export default function TransactionsScreen({ data: transactions }: TransactionProps) {
+export function TransactionsScreen({ data: transactions, onDeleteTransaction }: TransactionProps) {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<Transaction | null>(null);
 
   // Group transactions by date
   const groupedTransactions = useMemo(() => {
@@ -103,7 +108,10 @@ export default function TransactionsScreen({ data: transactions }: TransactionPr
                     className="animate-fade-up"
                     style={{ animationDelay: `${(dateIndex * 0.1) + (index * 0.05)}s` }}
                   >
-                    <TransactionItem transaction={transaction} />
+                    <TransactionItem 
+                      transaction={transaction} 
+                      onClick={() => { setSelected(transaction); setOpen(true); }}
+                    />
                   </div>
                 ))}
               </div>
@@ -111,6 +119,17 @@ export default function TransactionsScreen({ data: transactions }: TransactionPr
           ))}
         </div>
       </ScrollArea>
+
+      <TransactionDetailsModal 
+        open={open}
+        onOpenChange={(o) => { if (!o) setSelected(null); setOpen(o); }}
+        transaction={selected}
+        onDelete={async (id) => {
+          await onDeleteTransaction?.(id);
+          setOpen(false);
+          setSelected(null);
+        }}
+      />
     </div>
   );
 }

@@ -1,18 +1,19 @@
 import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { cn, formatCurrencyBRL } from "@/lib/utils";
 import { Transaction } from "@/services/supabase";
 
 interface TransactionItemProps {
   transaction: Transaction;
+  onClick?: () => void;
 }
 
-export default function TransactionItem({ transaction }: TransactionItemProps) {
+export default function TransactionItem({ transaction, onClick }: TransactionItemProps) {
   const isIncome = transaction.type === 'income';
 
   console.log(transaction)
 
   return (
-    <Card className="p-4 lg:p-5 hover:shadow-md transition-all duration-200 cursor-pointer touch-target border border-border/50 hover:border-border">
+    <Card onClick={onClick} className="p-4 lg:p-5 hover:shadow-md transition-all duration-200 cursor-pointer touch-target border border-border/50 hover:border-border">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3 lg:space-x-4">
           {/* Category Icon */}
@@ -40,7 +41,7 @@ export default function TransactionItem({ transaction }: TransactionItemProps) {
             "text-lg lg:text-xl font-bold",
             isIncome ? "text-income" : "text-expense"
           )}>
-            {isIncome ? '+' : '-'}R$ {transaction.amount.toFixed(2)}
+            {isIncome ? '+' : '-'}{formatCurrencyBRL(Math.abs(transaction.amount))}
           </p>
           <p className="text-xs lg:text-sm text-muted-foreground">
             {transaction.transaction_date}
@@ -50,4 +51,3 @@ export default function TransactionItem({ transaction }: TransactionItemProps) {
     </Card>
   );
 }
-

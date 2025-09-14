@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import { formatCurrencyBRL } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { computeDashboardData } from "@/lib/compute-dashboard-data";
 import { Transaction } from "@/services/supabase";
@@ -9,7 +10,7 @@ type DashboardScreenProps = {
   data: Transaction[]
 }
 
-export default function DashboardScreen({ data }: DashboardScreenProps) {
+export function DashboardScreen({ data }: DashboardScreenProps) {
   const { categoryData, summaryData, weeklyData } = computeDashboardData(data)
   return (
     <div className="h-full w-full">
@@ -33,7 +34,7 @@ export default function DashboardScreen({ data }: DashboardScreenProps) {
                 <div>
                   <p className="text-sm lg:text-base text-muted-foreground">Saldo Atual</p>
                   <p className="text-2xl lg:text-3xl font-bold text-foreground">
-                    R$ {summaryData.balance.toFixed(2)}
+                    {formatCurrencyBRL(summaryData.balance)}
                   </p>
                 </div>
                 <div className="w-12 h-12 lg:w-16 lg:h-16 bg-primary/20 rounded-full flex items-center justify-center">
@@ -51,7 +52,7 @@ export default function DashboardScreen({ data }: DashboardScreenProps) {
                 <div>
                   <p className="text-xs lg:text-sm text-muted-foreground">Entradas</p>
                   <p className="text-lg lg:text-xl font-semibold text-income">
-                    R$ {summaryData.income.toFixed(2)}
+                    {formatCurrencyBRL(summaryData.income)}
                   </p>
                 </div>
               </div>
@@ -66,7 +67,7 @@ export default function DashboardScreen({ data }: DashboardScreenProps) {
                 <div>
                   <p className="text-xs lg:text-sm text-muted-foreground">Saídas</p>
                   <p className="text-lg lg:text-xl font-semibold text-expense">
-                    R$ {summaryData.expense.toFixed(2)}
+                    {formatCurrencyBRL(summaryData.expense)}
                   </p>
                 </div>
               </div>
@@ -79,7 +80,7 @@ export default function DashboardScreen({ data }: DashboardScreenProps) {
                 <div>
                   <p className="text-xs lg:text-sm text-muted-foreground">Investimentos</p>
                   <p className="text-lg lg:text-xl font-semibold text-investment">
-                    R$ {summaryData.investment.toFixed(2)}
+                    {formatCurrencyBRL(summaryData.investment)}
                   </p>
                 </div>
               </div>
@@ -122,7 +123,7 @@ export default function DashboardScreen({ data }: DashboardScreenProps) {
                       <span className="text-sm lg:text-base text-foreground">{category.name}</span>
                     </div>
                     <span className="text-sm lg:text-base font-medium text-foreground">
-                      R$ {category.value.toFixed(2)}
+                      {formatCurrencyBRL(category.value)}
                     </span>
                   </div>
                 ))}
@@ -183,4 +184,3 @@ export default function DashboardScreen({ data }: DashboardScreenProps) {
     </div>
   );
 }
-

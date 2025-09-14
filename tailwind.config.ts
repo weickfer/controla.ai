@@ -26,6 +26,11 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				
 				/* Financial colors */
+				whatsapp: {
+          DEFAULT: "hsl(var(--whatsapp))",
+          foreground: "hsl(var(--whatsapp-foreground))",
+          dark: "hsl(var(--whatsapp-dark))",
+        },
 				income: {
 					DEFAULT: 'hsl(var(--income))',
 					foreground: 'hsl(var(--income-foreground))',
