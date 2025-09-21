@@ -38,6 +38,10 @@ export type Transaction = {
   created_at: string // ISO timestamp string
 }
 
+export type RecurringTransaction = Transaction & {
+  frequency: 'daily' | 'weekly' | 'monthly';
+}
+
 type GetUserData = {
   error: string;
   data: null | {
@@ -45,7 +49,8 @@ type GetUserData = {
       id: string
       name: string
     }
-    transactions: Transaction[]
+    transactions: Transaction[];
+    recurring: RecurringTransaction[];
   }
 }
 
@@ -94,7 +99,8 @@ export async function getUserData(): Promise<GetUserData> {
       .from("users")
       .select(`
         *,
-        transactions(*)
+        transactions(*),
+        recurring_transactions(*)
       `)
       .eq("id", uid)
       .order('created_at', { referencedTable: 'transactions', ascending: false })
@@ -117,6 +123,7 @@ export async function getUserData(): Promise<GetUserData> {
       data: {
         user: user,
         transactions: data?.transactions,
+        recurring: data?.recurring_transactions,
       }
     }
   } catch (err) {

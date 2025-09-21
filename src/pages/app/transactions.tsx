@@ -1,10 +1,9 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Transaction } from "@/services/supabase";
 import { Calendar } from "lucide-react";
-import { useMemo } from "react";
-import TransactionItem from "./transaction-item";
-import { useState } from "react";
-import TransactionDetailsModal from "./transaction-details-modal";
+import { useMemo, useState } from "react";
+import TransactionDetailsModal from "./components/transaction-details-modal";
+import TransactionItem from "./components/transaction-item";
 
 
 type TransactionProps = {

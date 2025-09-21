@@ -31,8 +31,11 @@ export const Pricing = () => {
               +300 usuários no beta
             </div>
 
-            {/* Preço */}
+            {/* Preço com promoção */}
             <div className="mb-6">
+              <div className="mb-1">
+                <span className="text-base text-muted-foreground line-through">R$ 24,90</span>
+              </div>
               <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
                 R$ 12,90
                 <span className="text-lg text-muted-foreground font-normal">/mês</span>

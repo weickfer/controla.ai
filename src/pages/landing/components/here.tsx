@@ -22,7 +22,7 @@ export const Hero = () => {
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
               Seu controle financeiro no{" "}
-              <span className="text-whatsapp drop-shadow-lg">
+              <span className="text-white drop-shadow-lg">
                 WhatsApp
               </span>
             </h1>
@@ -35,33 +35,35 @@ export const Hero = () => {
               <Button 
                 variant="whatsapp" 
                 size="lg"
-                className="group"
+                className="group bg-white text-primary hover:bg-white/90"
                 onClick={() => window.open('https://wa.me/5511999999999?text=Oi! Quero começar a usar o controla.ai', '_blank')}
               >
                 <MessageCircle className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                 Começar agora no WhatsApp
               </Button>
               
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="bg-white/20 border-white/40 text-white hover:bg-white/30 backdrop-blur-sm font-semibold"
-              >
-                Ver como funciona
-              </Button>
+              <a href="#como-funciona">
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="bg-white/20 border-white/40 text-white hover:bg-white/30 backdrop-blur-sm font-semibold"
+                >
+                  Ver como funciona
+                </Button>
+              </a>
             </div>
             
             <div className="mt-8 flex items-center justify-center lg:justify-start gap-6 text-white/90">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-whatsapp rounded-full shadow-sm" />
+                <div className="w-2 h-2 bg-white rounded-full shadow-sm" />
                 <span className="text-sm font-medium drop-shadow-sm">Gratuito</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-whatsapp rounded-full shadow-sm" />
+                <div className="w-2 h-2 bg-white rounded-full shadow-sm" />
                 <span className="text-sm font-medium drop-shadow-sm">Sem planilhas</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-whatsapp rounded-full shadow-sm" />
+                <div className="w-2 h-2 bg-white rounded-full shadow-sm" />
                 <span className="text-sm font-medium drop-shadow-sm">Por voz</span>
               </div>
             </div>
