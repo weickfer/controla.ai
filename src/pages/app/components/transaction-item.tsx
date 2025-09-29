@@ -9,8 +9,7 @@ interface TransactionItemProps {
 
 export default function TransactionItem({ transaction, onClick }: TransactionItemProps) {
   const isIncome = transaction.type === 'income';
-
-  console.log(transaction)
+  
 
   return (
     <Card onClick={onClick} className="p-4 lg:p-5 hover:shadow-md transition-all duration-200 cursor-pointer touch-target border border-border/50 hover:border-border">

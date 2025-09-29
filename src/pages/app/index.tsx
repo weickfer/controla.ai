@@ -1,4 +1,4 @@
-import { BarChart3, CalendarCheck, Receipt } from "lucide-react";
+import { BarChart3, CalendarCheck, Goal, Receipt } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -7,13 +7,14 @@ import { cn } from "@/lib/utils";
 import { deleteTransaction, getUserData, RecurringTransaction, Transaction } from "@/services/supabase";
 
 import { AuthRequiredView } from "./auth";
+import { BudgetScreen } from "./budget";
 import { DashboardScreen } from "./dashboard";
 import { LoadingView } from "./loading";
 import { RecurringScreen } from "./recurring";
 import { TransactionsScreen } from "./transactions";
 
 // Tipos
-type Screen = "transactions" | "dashboard" | "recurring";
+type Screen = "transactions" | "dashboard" | "recurring" | "budget";
 
 type User = {
   id: string
@@ -21,7 +22,7 @@ type User = {
 }
 
 export function App() {
-  const [activeScreen, setActiveScreen] = useState<Screen>("transactions");
+  const [activeScreen, setActiveScreen] = useState<Screen>("dashboard");
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Novo estado do fluxo de auth
@@ -82,6 +83,21 @@ export function App() {
             {/* Mobile Navigation */}
             <nav className="lg:hidden bg-card border-b border-border px-6 py-3">
               <div className="flex justify-center space-x-8">
+              <Button
+                  variant="ghost"
+                  size="lg"
+                  className={cn(
+                    "flex flex-col items-center gap-1 h-auto py-3 px-4 rounded-xl transition-all duration-200",
+                    activeScreen === "dashboard"
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                  onClick={() => setActiveScreen("dashboard")}
+                >
+                  <BarChart3 className="w-5 h-5" />
+                  <span className="text-xs font-medium">Gráficos</span>
+                </Button>
+
                 <Button
                   variant="ghost"
                   size="lg"
@@ -96,28 +112,13 @@ export function App() {
                   <Receipt className="w-5 h-5" />
                   <span className="text-xs font-medium">Transações</span>
                 </Button>
-
-                <Button
-                  variant="ghost"
-                  size="lg"
-                  className={cn(
-                    "flex flex-col items-center gap-1 h-auto py-3 px-4 rounded-xl transition-all duration-200",
-                    activeScreen === "dashboard"
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:text-foreground"
-                  )}
-                  onClick={() => setActiveScreen("dashboard")}
-                >
-                  <BarChart3 className="w-5 h-5" />
-                  <span className="text-xs font-medium">Gráficos</span>
-                </Button>
                 
                 <Button
                   variant="ghost"
                   size="lg"
                   className={cn(
                     "flex flex-col items-center gap-1 h-auto py-3 px-4 rounded-xl transition-all duration-200",
-                    activeScreen === "dashboard"
+                    activeScreen === "recurring"
                       ? "bg-primary/10 text-primary"
                       : "text-muted-foreground hover:text-foreground"
                   )}
@@ -126,12 +127,39 @@ export function App() {
                   <CalendarCheck className="w-5 h-5" />
                   <span className="text-xs font-medium">Gastos Recorrentes</span>
                 </Button>
+                
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  className={cn(
+                    "flex flex-col items-center gap-1 h-auto py-3 px-4 rounded-xl transition-all duration-200",
+                    activeScreen === "budget"
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                  onClick={() => setActiveScreen("budget")}
+                >
+                  <Goal className="w-5 h-5" />
+                  <span className="text-xs font-medium">Gastos Recorrentes</span>
+                </Button>
               </div>
             </nav>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:block px-6 pb-4">
               <div className="space-y-2">
+              <Button
+                  variant={activeScreen === "dashboard" ? "default" : "ghost"}
+                  className={cn(
+                    "w-full justify-start h-12 text-left transition-all duration-200",
+                    activeScreen === "dashboard" && "bg-primary text-primary-foreground"
+                  )}
+                  onClick={() => setActiveScreen("dashboard")}
+                >
+                  <BarChart3 className="w-5 h-5 mr-3" />
+                  Dashboard
+                </Button>
+
                 <Button
                   variant={activeScreen === "transactions" ? "default" : "ghost"}
                   className={cn(
@@ -142,18 +170,6 @@ export function App() {
                 >
                   <Receipt className="w-5 h-5 mr-3" />
                   Transações
-                </Button>
-
-                <Button
-                  variant={activeScreen === "dashboard" ? "default" : "ghost"}
-                  className={cn(
-                    "w-full justify-start h-12 text-left transition-all duration-200",
-                    activeScreen === "dashboard" && "bg-primary text-primary-foreground"
-                  )}
-                  onClick={() => setActiveScreen("dashboard")}
-                >
-                  <BarChart3 className="w-5 h-5 mr-3" />
-                  Dashboard
                 </Button>
                 
                 <Button
@@ -166,6 +182,18 @@ export function App() {
                 >
                   <CalendarCheck className="w-5 h-5 mr-3" />
                   Gastos Recorrentes
+                </Button>
+
+                <Button
+                  variant={activeScreen === "budget" ? "default" : "ghost"}
+                  className={cn(
+                    "w-full justify-start h-12 text-left transition-all duration-200",
+                    activeScreen === "budget" && "bg-primary text-primary-foreground"
+                  )}
+                  onClick={() => setActiveScreen("budget")}
+                >
+                  <Goal className="w-5 h-5 mr-3" />
+                  Limites
                 </Button>
               </div>
             </nav>
@@ -188,6 +216,7 @@ export function App() {
               )}
               {activeScreen === "dashboard" && <DashboardScreen data={transactions} />}
               {activeScreen === "recurring" && <RecurringScreen data={recurring} />}
+              {activeScreen === "budget" && <BudgetScreen />}
             </main>
           </div>
 
@@ -209,6 +238,7 @@ export function App() {
             )}
             {activeScreen === "dashboard" && <DashboardScreen data={transactions} />}
             {activeScreen === "recurring" && <RecurringScreen data={recurring} />}
+            {activeScreen === "budget" && <BudgetScreen />}
           </div>
         </div>
       </div>

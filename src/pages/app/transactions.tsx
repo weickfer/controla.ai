@@ -1,4 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { dateFriendly } from "@/lib/date-friendly";
 import { Transaction } from "@/services/supabase";
 import { Calendar } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -60,41 +61,7 @@ export function TransactionsScreen({ data: transactions, onDeleteTransaction }: 
               >
                 <Calendar className="w-4 h-4 text-muted-foreground" />
                 <h3 className="text-sm lg:text-base font-semibold text-foreground">
-                  {(() => {
-                    // Tenta converter a data para um label amigável
-                    const today = new Date();
-                    const txDate = new Date(date);
-                    // Zera horas para comparar só a data
-                    const todayYMD = today.toISOString().slice(0, 10);
-                    const txYMD = txDate.toISOString().slice(0, 10);
-
-                    if (txYMD === todayYMD) return "Hoje";
-
-                    // Ontem
-                    const yesterday = new Date(today);
-                    yesterday.setDate(today.getDate() - 1);
-                    const yesterdayYMD = yesterday.toISOString().slice(0, 10);
-                    if (txYMD === yesterdayYMD) return "Ontem";
-
-                    // Dia da semana (em português)
-                    const dias = [
-                      "Segunda-feira",
-                      "Terça-feira",
-                      "Quarta-feira",
-                      "Quinta-feira",
-                      "Sexta-feira",
-                      "Sábado",
-                      "Domingo",
-                    ];
-                    // Se for na mesma semana (últimos 7 dias, mas não hoje/ontem)
-                    const diff = Math.floor((today.getTime() - txDate.getTime()) / (1000 * 60 * 60 * 24));
-                    if (diff < 7 && diff > 1) {
-                      return dias[txDate.getDay()];
-                    }
-
-                    // Se não, mostra data formatada (ex: 07/09/2025)
-                    return txDate.toLocaleDateString("pt-BR");
-                  })()}
+                  {dateFriendly(date)}
                 </h3>
                 <div className="flex-1 h-px bg-border/50"></div>
               </div>

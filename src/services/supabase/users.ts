@@ -1,54 +1,5 @@
-// supabaseClient.js (ou .ts)
-import { createClient } from '@supabase/supabase-js'
-
-const SUPABASE_URL = 'https://wknubmnklswskjmspoxj.supabase.co'
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrbnVibW5rbHN3c2tqbXNwb3hqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyNjE3NDQsImV4cCI6MjA3MjgzNzc0NH0.rcgJhIAVkCDKeC-65lIjjYjY_yxmjfwGmAnREMwDZmU'
-
-export function getSupabaseClientFromToken() {
-  const token = localStorage.getItem('token') // Assumindo que você salva o JWT assim
-
-  if (!token) {
-    throw new Error('Token JWT não encontrado no localStorage.')
-  }
-
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-    global: {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }
-  })
-
-  return supabase
-}
-
-export type User = {
-  id: string
-  name: string
-}
-
-export type Transaction = {
-  id: number
-  user_id: number
-  type: 'income' | 'expense' | 'investment'
-  amount: number
-  category: string | null
-  description: string | null
-  transaction_date: any // ISO date string, e.g. '2024-06-13'
-  created_at: string // ISO timestamp string
-}
-
-export type RecurringTransaction = Transaction & {
-  frequency: 'daily' | 'weekly' | 'monthly';
-}
-
-export type BudgetLimit = {
-  id: string;
-  user_id: string;
-  category: string;
-  limit_amount: number;
-  created_at: string;
-};
+import { RecurringTransaction, Transaction } from "../supabase";
+import { supabase } from "./client";
 
 type GetUserData = {
   error: string;
@@ -102,8 +53,7 @@ export async function getUserData(): Promise<GetUserData> {
     }
 
     // Buscar usuário no Supabase
-    const supabase = getSupabaseClientFromToken();
-    const { data, error } = await supabase
+    const { data, error } = await supabase()
       .from("users")
       .select(`
         *,
@@ -139,22 +89,5 @@ export async function getUserData(): Promise<GetUserData> {
       error: 'unexpected',
       data: null,
     }
-  }
-}
-
-export async function deleteTransaction(id: number): Promise<{ error: string | null }>{
-  try {
-    const supabase = getSupabaseClientFromToken();
-    const { error } = await supabase
-      .from('transactions')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      return { error: 'delete-failed' };
-    }
-    return { error: null };
-  } catch (e) {
-    return { error: 'unexpected' };
   }
 }

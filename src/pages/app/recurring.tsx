@@ -129,10 +129,8 @@ export function RecurringScreen({ data }: RecurringScreenProps) {
             </Card>
 
             {sortedRecurring.map((transaction, index) => {
-              console.log(transaction)
               const monthlyEquivalent = getMonthlyEquivalent(transaction);
-              const { nextOccurrenceDate: initialNextOccurrenceDate } = getNextOccurrenceDate(transaction);
-              let nextOccurrenceDate = initialNextOccurrenceDate;
+              const { nextOccurrenceDate } = getNextOccurrenceDate(transaction);
 
               const nextOccurrence = formatDateLabel(nextOccurrenceDate.toISOString());
               const isIncome = transaction.type === "income";

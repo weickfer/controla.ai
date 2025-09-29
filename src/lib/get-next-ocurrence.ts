@@ -39,8 +39,8 @@ export const getNextOccurrenceDate = (transaction: RecurringTransaction) => {
   if(transaction.frequency === 'weekly') {
     const availableDays = getWeekDays(insertedDate);
     const distances = availableDays.map((d, i) => [Math.abs(d - now.getDate()), i]).sort((a, b) => a[0] - b[0])
-    const recurringDay = availableDays[distances[0][1] + 1]
-    
+    const recurringDay = availableDays[distances[0][1]]
+
     nextOccurrenceDate = new Date(now.getFullYear(), now.getMonth(), recurringDay);
     nextOccurrenceDate.setHours(0, 0, 0, 0);
   }
