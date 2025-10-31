@@ -1,73 +1,114 @@
-# Welcome to your Lovable project
+🧠 Controla.ai
 
-## Project info
+Seu assistente financeiro inteligente no WhatsApp.
+O Controla.ai substitui planilhas e aplicativos de finanças pessoais por uma conversa simples e intuitiva.
+Registre transações, defina limites e receba análises automáticas direto no WhatsApp, com visualização completa em um painel web.
 
-**URL**: https://lovable.dev/projects/8e7c13d4-1459-4f9e-b460-249e0b07cdd7
+🚀 Visão Geral
 
-## How can I edit this code?
+O Controla.ai conecta um agente de IA ao WhatsApp para simplificar o controle financeiro pessoal.
+O usuário conversa normalmente e a IA entende, classifica e registra os gastos, permitindo acompanhar tudo em um painel visual.
 
-There are several ways of editing your application.
+✨ Funcionalidades
 
-**Use Lovable**
+💬 Registro de transações por texto ou voz
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/8e7c13d4-1459-4f9e-b460-249e0b07cdd7) and start prompting.
+💰 Despesas recorrentes automáticas
 
-Changes made via Lovable will be committed automatically to this repo.
+📊 Dashboard web com gráficos e categorias
 
-**Use your preferred IDE**
+🔔 Alertas de limite de gasto e resumos semanais/mensais
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+🤖 Consultas em linguagem natural
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+🧾 Relatório da Vergonha (feedback divertido sobre gastos)
 
-Follow these steps:
+🧩 Integração com Supabase (PostgreSQL + RLS + pg_cron)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+💬 Comunicação via WhatsApp (EvolutionAPI)
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+🧱 Arquitetura
+WhatsApp (usuário)
+   │
+   ▼
+Evolution API → n8n → Agente de IA (GPT-4o-mini)
+   │
+   ▼
+Supabase (PostgreSQL + RLS + pgvector)
+   │
+   ▼
+Painel Web (Vite + React + Tailwind)
 
-# Step 3: Install the necessary dependencies.
-npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+Frontend: Vite + React + TailwindCSS
 
-**Edit a file directly in GitHub**
+Backend: n8n + Node.js (futuro: Go)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Banco: Supabase (PostgreSQL com RLS e funções SQL)
 
-**Use GitHub Codespaces**
+IA: OpenAI GPT-4o-mini
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Mensageria: EvolutionAPI (WhatsApp)
 
-## What technologies are used for this project?
+🧩 Stack Técnica
+Camada	Tecnologia	Função
+Backend	Node.js / Go (futuro)	APIs e automações
+Banco	Supabase (PostgreSQL + RLS)	Persistência e segurança de dados
+Orquestração	n8n	Integração entre IA e serviços
+Mensageria	EvolutionAPI	Envio e recebimento via WhatsApp
+Frontend	React + Tailwind (Vite)	Interface do painel
+IA	OpenAI GPT-4o-mini	Processamento e entendimento natural
+📦 Estrutura de Pastas
+controla-ai/
+├── web/                 # Dashboard (Vite + React)
+├── n8n/                 # Fluxos de automação e agentes de IA
+├── supabase/            # Funções SQL, RLS e triggers
+├── services/
+│   ├── evolution-api/   # Webhook e integração WhatsApp
+│   └── mercado-pago/    # Webhook de pagamentos
+└── README.md
 
-This project is built with:
+🔒 Segurança
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+RLS (Row Level Security): cada usuário acessa apenas seus próprios dados
 
-## How can I deploy this project?
+Autenticação via WhatsApp: links dinâmicos com tokens temporários
 
-Simply open [Lovable](https://lovable.dev/projects/8e7c13d4-1459-4f9e-b460-249e0b07cdd7) and click on Share -> Publish.
+Validação de Webhooks: assinatura por hash para EvolutionAPI e Mercado Pago
 
-## Can I connect a custom domain to my Lovable project?
+Auditoria: logs de ações e mensagens no Supabase
 
-Yes, you can!
+💬 Exemplo de interação
+Usuário: Gastei 25 reais com lanche
+IA: *Transação registrada:* R$ 25,00 em Lanches 🍔
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Usuário: Quanto eu gastei este mês?
+IA: *Resumo:* Você gastou R$ 820,00 este mês, sendo R$ 320,00 em alimentação.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+📈 Roadmap
+
+ Registro de transações por voz
+
+ Dashboard com autenticação via WhatsApp
+
+ Despesas recorrentes
+
+ Relatórios automáticos
+
+ Exportação de dados (CSV/PDF)
+
+ Migração do n8n para backend em Node/Go
+
+ Aplicativo PWA
+
+👨‍💻 Autor
+
+Weickmam Ferreira Machado
+github.com/weickfer
+
+Software Engineer • Especialista em agentes inteligentes e automação
+
+📜 Licença
+
+Distribuído sob a licença MIT.
+Sinta-se à vontade para estudar, adaptar e contribuir.
