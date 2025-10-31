@@ -39,34 +39,16 @@ Supabase (PostgreSQL + RLS + pgvector)
    ▼
 Painel Web (Vite + React + Tailwind)
 
-
-Frontend: Vite + React + TailwindCSS
-
-Backend: n8n + Node.js (futuro: Go)
-
-Banco: Supabase (PostgreSQL com RLS e funções SQL)
-
-IA: OpenAI GPT-4o-mini
-
-Mensageria: EvolutionAPI (WhatsApp)
-
 🧩 Stack Técnica
-Camada	Tecnologia	Função
-Backend	Node.js / Go (futuro)	APIs e automações
-Banco	Supabase (PostgreSQL + RLS)	Persistência e segurança de dados
-Orquestração	n8n	Integração entre IA e serviços
-Mensageria	EvolutionAPI	Envio e recebimento via WhatsApp
-Frontend	React + Tailwind (Vite)	Interface do painel
-IA	OpenAI GPT-4o-mini	Processamento e entendimento natural
-📦 Estrutura de Pastas
-controla-ai/
-├── web/                 # Dashboard (Vite + React)
-├── n8n/                 # Fluxos de automação e agentes de IA
-├── supabase/            # Funções SQL, RLS e triggers
-├── services/
-│   ├── evolution-api/   # Webhook e integração WhatsApp
-│   └── mercado-pago/    # Webhook de pagamentos
-└── README.md
+| Camada       | Tecnologia                  | Função                               |
+| :----------- | :-------------------------- | :----------------------------------- |
+| Backend      | Node.js / Go (futuro)       | APIs e automações                    |
+| Banco        | Supabase (PostgreSQL + RLS) | Persistência e segurança de dados    |
+| Orquestração | n8n                         | Integração entre IA e serviços       |
+| Mensageria   | EvolutionAPI                | Envio e recebimento via WhatsApp     |
+| Frontend     | React + Tailwind (Vite)     | Interface do painel                  |
+| IA           | OpenAI GPT-4o-mini          | Processamento e entendimento natural |
+
 
 🔒 Segurança
 
@@ -100,13 +82,6 @@ IA: *Resumo:* Você gastou R$ 820,00 este mês, sendo R$ 320,00 em alimentação
  Migração do n8n para backend em Node/Go
 
  Aplicativo PWA
-
-👨‍💻 Autor
-
-Weickmam Ferreira Machado
-github.com/weickfer
-
-Software Engineer • Especialista em agentes inteligentes e automação
 
 📜 Licença
 
